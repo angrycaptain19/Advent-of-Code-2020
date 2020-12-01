@@ -24,7 +24,7 @@ def advent_of_code_day_1_part_1(expense_report):
 					eligible_items.append(item)
 					eligible_items.append(second_item)
 				else:
-					if (item != eligible_items[0] and item != eligible_items[1]):
+					if item not in [eligible_items[0], eligible_items[1]]:
 						eligible_items.append(item)
 						eligible_items.append(second_item)
 
@@ -46,7 +46,7 @@ def advent_of_code_day_1_part_2(expense_report):
 						eligible_items.append(second_item)
 						eligible_items.append(third_item)
 					else:
-						if (item != eligible_items[0] and item != eligible_items[1] and item != eligible_items[2]):
+						if item not in [eligible_items[0], eligible_items[1], eligible_items[2]]:
 							eligible_items.append(item)
 							eligible_items.append(second_item)
 							eligible_items.append(third_item)						
