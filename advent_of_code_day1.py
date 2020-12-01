@@ -15,7 +15,7 @@ input = [1895, 1504, 1660, 1775, 1743, 1607, 1267, 1133, 292, 1646,
 1723, 1891, 1302, 1655, 947, 1580, 1908, 1641, 1816, 1701, 1871, 1588, 1843,
 1643, 1893, 1866, 1628, 1417, 1795, 1995, 1937]
 
-def advent_of_code_day_1_part_1(expense_report):
+def advent_of_code_day_1_part_1():
 	eligible_items = []
 	for item in expense_report:
 		for second_item in expense_report:
@@ -35,22 +35,19 @@ def advent_of_code_day_1_part_1(expense_report):
 	print('they multiply together to:')
 	print(eligible_items[0]*eligible_items[1])
 
-def advent_of_code_day_1_part_2(expense_report):
+def advent_of_code_day_1_part_2():
 	eligible_items = []
 	for item in expense_report:
 		for second_item in expense_report:
 			for third_item in expense_report:
 				if (item + second_item + third_item == 2020):
 					if len(eligible_items) < 1:
-						eligible_items.append(item)
-						eligible_items.append(second_item)
-						eligible_items.append(third_item)
+						advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item,
+						                                              second_item, third_item)
 					else:
 						if item not in [eligible_items[0], eligible_items[1], eligible_items[2]]:
-							eligible_items.append(item)
-							eligible_items.append(second_item)
-							eligible_items.append(third_item)						
-
+							advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item,
+							                                              second_item, third_item)
 	print('Part two results:')
 	print('the three numbers are:')
 	print(eligible_items)
@@ -58,6 +55,10 @@ def advent_of_code_day_1_part_2(expense_report):
 	print('they multiply together to:')
 	print(eligible_items[0]*eligible_items[1]*eligible_items[2])
 
+def advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item, second_item, third_item):
+	eligible_items.append(item)
+	eligible_items.append(second_item)
+	eligible_items.append(third_item)
 
 advent_of_code_day_1_part_1(input)
 
