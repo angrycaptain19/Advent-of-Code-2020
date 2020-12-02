@@ -14,16 +14,9 @@ def parser(input_string):
   return lower_limit, upper_limit, letter, test_password
 
 def part_1_password_check(lower_bound, upper_bound, rule_letter, password_to_test):
-  i = 0 
-  letter_count = 0
-  while i < len(password_to_test):
-    if password_to_test[i] == rule_letter:
-      letter_count = letter_count + 1
-    i = i + 1
-  if letter_count >= lower_bound and letter_count <= upper_bound:
-    return True
-  else:
-    return False
+  letter_count = sum(1 for i in range(len(password_to_test))
+                     if password_to_test[i] == rule_letter)
+  return letter_count >= lower_bound and letter_count <= upper_bound
 
 def part_1_check_full_list():
   count_of_valid_passwords = 0
@@ -31,7 +24,7 @@ def part_1_check_full_list():
     lower_limit, upper_limit, letter, test_password = parser(item)
     validation = part_1_password_check(lower_bound = lower_limit, upper_bound = upper_limit, rule_letter = letter, password_to_test = test_password)
     if validation == True:
-      count_of_valid_passwords = count_of_valid_passwords + 1
+      count_of_valid_passwords += 1
   return count_of_valid_passwords
 
 
@@ -51,10 +44,10 @@ def part_2_password_check(lower_bound, upper_bound, rule_letter, password_to_tes
   else:
     second_condition = False
   if first_condition == True and second_condition == True:
-      return False
-  elif first_condition == True and second_condition != True:
-      return True
-  elif first_condition != True and second_condition == True:
+    return False
+  elif first_condition == True:
+    return True
+  elif second_condition == True:
     return True
   else:
     return False
@@ -66,7 +59,7 @@ def part_2_check_full_list():
     lower_limit, upper_limit, letter, test_password = parser(item)
     validation = part_2_password_check(lower_bound = lower_limit, upper_bound = upper_limit, rule_letter = letter, password_to_test = test_password)
     if validation == True:
-      count_of_valid_passwords = count_of_valid_passwords + 1
+      count_of_valid_passwords += 1
   return count_of_valid_passwords
 
 print("Part 2 results:")
