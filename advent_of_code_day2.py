@@ -43,14 +43,9 @@ def part_2_password_check(lower_bound, upper_bound, rule_letter, password_to_tes
     second_condition = True
   else:
     second_condition = False
-  if first_condition == True and second_condition == True:
-    return False
-  elif first_condition == True:
-    return True
-  elif second_condition == True:
-    return True
-  else:
-    return False
+  return (first_condition != True
+          or second_condition != True) and (first_condition == True
+                                            or second_condition == True)
     
 
 def part_2_check_full_list():
