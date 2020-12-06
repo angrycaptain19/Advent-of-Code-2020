@@ -13,11 +13,10 @@ def part_one_customs_check(input_file):
       current_group_unique_answers = []
     else:
       for character in range(0, len(row), 1):
-        if row[character] != "" or row[character] != "\n":
-          if row[character] not in current_group_unique_answers:
-            current_group_unique_answers.append(row[character])
-  total_unique_answer_sum = np.sum(unique_answer_counts) 
-  return total_unique_answer_sum
+        if (row[character] != "" or row[character] != "\n"
+            ) and row[character] not in current_group_unique_answers:
+          current_group_unique_answers.append(row[character])
+  return np.sum(unique_answer_counts)
 
 print("The total number of unique answers in part one is %s" % part_one_customs_check(input))
 
@@ -38,25 +37,23 @@ def part_two_customs_check(input_file):
         for character in range(0, len(row), 1):
           if row[character] != "" or row[character] != "\n":
             current_group_unanimous_answers.append(row[character])
-        group_row_counter += 1
       else:
        #Defines the answers for an individual in a group who isn't the first to answer
-        current_individual_answers = []
-        for character in range(0, len(row), 1):
-          if row[character] != "" or row[character] != "\n":
-              current_individual_answers.append(row[character])
+        current_individual_answers = [
+            row[character] for character in range(0, len(row), 1)
+            if row[character] != "" or row[character] != "\n"
+        ]
         #Need to create a temporary version of the group answers to iterate over
-        answer_checker = 0 
+        answer_checker = 0
         while answer_checker < len(current_group_unanimous_answers):
           answer = current_group_unanimous_answers[answer_checker]
           if answer not in current_individual_answers:
             current_group_unanimous_answers.remove(answer)
           else:
             answer_checker += 1
-        group_row_counter += 1
-
+      group_row_counter += 1
   print(unique_answer_counts)
-  total_unique_answer_sum = np.sum(unique_answer_counts) 
+  total_unique_answer_sum = np.sum(unique_answer_counts)
   return total_unique_answer_sum
 
 print("The total number of unique answers in part two is %s" % part_two_customs_check(input))
