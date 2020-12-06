@@ -60,9 +60,7 @@ def passport_check_part_2(passport, necessary_fields):
 def birth_year_validation(birth_year, current_passport_status):
   passport_status = current_passport_status
   birth_year = int(birth_year)
-  if birth_year > 2002:
-    passport_status = "Invalid"
-  elif birth_year < 1920:
+  if birth_year > 2002 or birth_year < 1920:
     passport_status = "Invalid"
   print("Birth year is %s" % passport_status)
   return passport_status
@@ -70,9 +68,7 @@ def birth_year_validation(birth_year, current_passport_status):
 def issue_year_validation(issue_year, current_passport_status):
   passport_status = current_passport_status
   issue_year = int(issue_year)
-  if issue_year > 2020:
-    passport_status = "Invalid"
-  elif issue_year < 2010:
+  if issue_year > 2020 or issue_year < 2010:
     passport_status = "Invalid"
   print("Issue year is %s" % passport_status)
   return passport_status
@@ -80,9 +76,7 @@ def issue_year_validation(issue_year, current_passport_status):
 def expiration_year_validation(expiration_year, current_passport_status):
   passport_status = current_passport_status
   expiration_year = int(expiration_year)
-  if expiration_year > 2030:
-    passport_status = "Invalid"
-  elif expiration_year < 2020:
+  if expiration_year > 2030 or expiration_year < 2020:
     passport_status = "Invalid"
   print("Expiration year is %s" % passport_status)
   return passport_status
@@ -92,16 +86,12 @@ def height_validation(height, current_passport_status):
   if "cm" in height:
     cm_position = height.find("cm")
     height_in_cm = int(height[0:cm_position])
-    if height_in_cm < 150:
-      passport_status = "Invalid"
-    elif height_in_cm > 193:
+    if height_in_cm < 150 or height_in_cm > 193:
       passport_status = "Invalid"
   elif "in" in height:
     inch_position = height.find("in")
     height_in_inches = int(height[0:inch_position])
-    if height_in_inches < 59:
-      passport_status = "Invalid"
-    elif height_in_inches > 76:
+    if height_in_inches < 59 or height_in_inches > 76:
       passport_status = "Invalid"
   else:
     passport_status = "Invalid"
@@ -110,16 +100,13 @@ def height_validation(height, current_passport_status):
 
 def hair_color_validation(hair_color, current_passport_status):
   passport_status = current_passport_status
-  valid_color_keys = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
-  if len(hair_color) != 7:
+  if hair_color[0] != "#" or len(hair_color) != 7:
     passport_status = "Invalid"
   else:
-    if hair_color[0] != "#":
-      passport_status = "Invalid"
-    else:
-      for character in range(1,len(hair_color),1):
-        if hair_color[character] not in valid_color_keys:
-          passport_status = "Invalid"
+    valid_color_keys = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+    for character in range(1,len(hair_color),1):
+      if hair_color[character] not in valid_color_keys:
+        passport_status = "Invalid"
   print("Hair color is %s" % passport_status)
   return passport_status
 
@@ -133,10 +120,10 @@ def eye_color_validation(eye_color, current_passport_status):
 
 def passport_id_validation(passport_id, current_passport_status):
   passport_status = current_passport_status
-  valid_numbers = ["0","1","2","3","4","5","6","7","8","9"]
   if len(passport_id) != 9:
     passport_status = "Invalid"
   else:
+    valid_numbers = ["0","1","2","3","4","5","6","7","8","9"]
     for character in passport_id:
       if character not in valid_numbers:
         passport_status = "Invalid"
