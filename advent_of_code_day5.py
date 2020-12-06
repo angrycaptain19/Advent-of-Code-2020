@@ -15,8 +15,7 @@ def identify_row(boarding_pass, number_of_rows_on_plane, number_of_row_identitie
     elif boarding_pass[character] == "B":
       min_row = math.ceil((min_row + max_row) / 2)
     else: print("This is not a valid boarding pass")
-  seat_row = min_row
-  return seat_row
+  return min_row
 
 def identify_column(boarding_pass, number_of_columns_on_plane, number_of_row_identities, number_of_column_identities):
   min_column = 0
@@ -27,8 +26,7 @@ def identify_column(boarding_pass, number_of_columns_on_plane, number_of_row_ide
     elif boarding_pass[character] == "R":
       min_column = math.ceil((min_column + max_column) / 2)
     else: print("This is not a valid boarding pass")
-  seat_column = min_column
-  return seat_column
+  return min_column
 
 def seat_id(seat_row, seat_column):
   return seat_row * 8 + seat_column
