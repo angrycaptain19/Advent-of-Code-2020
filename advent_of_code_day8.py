@@ -20,23 +20,23 @@ def part_1_solution(input):
     cleaned_operator = current_instruction[3:].strip()
     direction = cleaned_operator[0]
     operator_value = int(cleaned_operator[1:])
-    if instruction_type == "nop":
-      current_position += 1
-      read_instructions.append(current_position - 1)
     if instruction_type == "acc":
       if direction == "+":
-        accumulator_value = accumulator_value + operator_value
+        accumulator_value += operator_value
       else:
-        accumulator_value = accumulator_value - operator_value
+        accumulator_value -= operator_value
       current_position += 1
-      read_instructions.append(current_position - 1)  
-    if instruction_type == "jmp":
+      read_instructions.append(current_position - 1)
+    elif instruction_type == "jmp":
       if direction == "+":
-        current_position = current_position + operator_value
+        current_position += operator_value
         read_instructions.append(current_position - operator_value)
       else:
-        current_position = current_position - operator_value
+        current_position -= operator_value
         read_instructions.append(current_position + operator_value)
+    elif instruction_type == "nop":
+      current_position += 1
+      read_instructions.append(current_position - 1)
   return accumulator_value
 
 part_one_output = part_1_solution(input)
@@ -54,13 +54,11 @@ def part_2_solution(input):
     temporary_instructions = instructions
     if instruction_type == "nop":
       temp_instruction = "jmp"
-      temporary_instructions[i] = temp_instruction + instruction[3:]
     elif instruction_type == "jmp":
       temp_instruction = "nop"
-      temporary_instructions[i] = temp_instruction + instruction[3:]
     else:
       temp_instruction = "acc"
-      temporary_instructions[i] = temp_instruction + instruction[3:]
+    temporary_instructions[i] = temp_instruction + instruction[3:]
     loop_status, accumulator_value = part_2_loop(temporary_instructions)
     if loop_status == "Fixed":
       valid_accumulator_value = accumulator_value
@@ -79,7 +77,11 @@ def part_2_loop(instructions):
     cleaned_operator = current_instruction[3:].strip()
     direction = cleaned_operator[0]
     operator_value = int(cleaned_operator[1:])
-    if instruction_type == "nop":
+    if instruction_type == "acc":
+      if direction == "+":
+        accumulator_value += operator_value
+      else:
+        accumulator_value -= operator_value
       current_position += 1
       if current_position in read_instructions:
         loop_status = "Infinite"
@@ -88,22 +90,9 @@ def part_2_loop(instructions):
         loop_status = "Fixed"
         break
       read_instructions.append(current_position - 1)
-    if instruction_type == "acc":
+    elif instruction_type == "jmp":
       if direction == "+":
-        accumulator_value = accumulator_value + operator_value
-      else:
-        accumulator_value = accumulator_value - operator_value
-      current_position += 1
-      if current_position in read_instructions:
-        loop_status = "Infinite"
-        break
-      elif current_position >= len(instructions):
-        loop_status = "Fixed"
-        break
-      read_instructions.append(current_position - 1)  
-    if instruction_type == "jmp":
-      if direction == "+":
-        current_position = current_position + operator_value
+        current_position += operator_value
         if current_position in read_instructions:
           loop_status = "Infinite"
           break
@@ -112,14 +101,23 @@ def part_2_loop(instructions):
           break
         read_instructions.append(current_position - operator_value)
       else:
-        current_position = current_position - operator_value
+        current_position -= operator_value
         if current_position in read_instructions:
           loop_status = "Infinite"
           break
         elif current_position >= len(instructions):
           loop_status = "Fixed"
           break
-        read_instructions.append(current_position + operator_value) 
+        read_instructions.append(current_position + operator_value)
+    elif instruction_type == "nop":
+      current_position += 1
+      if current_position in read_instructions:
+        loop_status = "Infinite"
+        break
+      elif current_position >= len(instructions):
+        loop_status = "Fixed"
+        break
+      read_instructions.append(current_position - 1)
   return loop_status, accumulator_value
 
 part_two_output = part_2_solution(input)
