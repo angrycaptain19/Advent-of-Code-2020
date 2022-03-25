@@ -9,7 +9,7 @@ number_of_column_identities = 3
 def identify_row(boarding_pass, number_of_rows_on_plane, number_of_row_identities):
   min_row = 0
   max_row = number_of_rows_on_plane
-  for character in range(0, number_of_row_identities, 1):
+  for character in range(number_of_row_identities):
     if boarding_pass[character] == "F":
       max_row = math.floor((min_row + max_row) / 2)
     elif boarding_pass[character] == "B":
@@ -20,7 +20,7 @@ def identify_row(boarding_pass, number_of_rows_on_plane, number_of_row_identitie
 def identify_column(boarding_pass, number_of_columns_on_plane, number_of_row_identities, number_of_column_identities):
   min_column = 0
   max_column = number_of_columns_on_plane
-  for character in range(number_of_row_identities, (number_of_row_identities + number_of_column_identities), 1):
+  for character in range(number_of_row_identities, number_of_row_identities + number_of_column_identities):
     if boarding_pass[character] == "L":
       max_column = math.floor((min_column + max_column) / 2)
     elif boarding_pass[character] == "R":
@@ -61,7 +61,7 @@ def part_two(input_file):
     if ticket_id < min_seat_id:
       min_seat_id = ticket_id
   your_seat = 0
-  for seat in range(min_seat_id, max_seat_id, 1):
+  for seat in range(min_seat_id, max_seat_id):
     if (seat - 1) in seat_id_list and (seat + 1) in seat_id_list and seat not in seat_id_list:
       your_seat = seat
   return your_seat

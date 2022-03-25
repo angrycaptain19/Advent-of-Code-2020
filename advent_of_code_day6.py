@@ -12,9 +12,8 @@ def part_one_customs_check(input_file):
       unique_answer_counts.append(len(current_group_unique_answers))
       current_group_unique_answers = []
     else:
-      for character in range(0, len(row), 1):
-        if (row[character] != "" or row[character] != "\n"
-            ) and row[character] not in current_group_unique_answers:
+      for character in range(len(row)):
+        if row[character] not in current_group_unique_answers:
           current_group_unique_answers.append(row[character])
   return np.sum(unique_answer_counts)
 
@@ -34,13 +33,12 @@ def part_two_customs_check(input_file):
       group_row_counter = 0
     else:
       if group_row_counter == 0:
-        for character in range(0, len(row), 1):
-          if row[character] != "" or row[character] != "\n":
-            current_group_unanimous_answers.append(row[character])
+        for character in range(len(row)):
+          current_group_unanimous_answers.append(row[character])
       else:
        #Defines the answers for an individual in a group who isn't the first to answer
         current_individual_answers = [
-            row[character] for character in range(0, len(row), 1)
+            row[character] for character in range(len(row))
             if row[character] != "" or row[character] != "\n"
         ]
         #Need to create a temporary version of the group answers to iterate over
