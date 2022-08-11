@@ -14,8 +14,8 @@ def parser(input_string):
   return lower_limit, upper_limit, letter, test_password
 
 def part_1_password_check(lower_bound, upper_bound, rule_letter, password_to_test):
-  letter_count = sum(1 for i in range(len(password_to_test))
-                     if password_to_test[i] == rule_letter)
+  letter_count = sum(
+      password_to_test[i] == rule_letter for i in range(len(password_to_test)))
   return letter_count >= lower_bound and letter_count <= upper_bound
 
 def part_1_check_full_list():
@@ -35,17 +35,10 @@ print(part_1_check_full_list())
 input = open("advent_of_code_day2_input.txt","r")
 
 def part_2_password_check(lower_bound, upper_bound, rule_letter, password_to_test):
-  if rule_letter == password_to_test[lower_bound]:
-    first_condition = True 
-  else:
-    first_condition = False
-  if rule_letter == password_to_test[upper_bound]:
-    second_condition = True
-  else:
-    second_condition = False
-  return (first_condition != True
-          or second_condition != True) and (first_condition == True
-                                            or second_condition == True)
+  first_condition = rule_letter == password_to_test[lower_bound]
+  second_condition = rule_letter == password_to_test[upper_bound]
+  return (not first_condition
+          or not second_condition) and (first_condition or second_condition)
     
 
 def part_2_check_full_list():
