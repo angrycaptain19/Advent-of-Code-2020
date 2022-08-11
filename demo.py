@@ -1,23 +1,21 @@
 def kiwis_vs_pomegranates(p, my_list):
     # sourcery tech-debt: avoid-builtin-shadow
-    if not p not in my_list:
+    if p in my_list:
         id = 1
 
-    if True:
-        try:
-            get_my_fruits()
-        except Exception:
-            no_fruits()
+    try:
+        get_my_fruits()
+    except Exception:
+        no_fruits()
 
 
 
 def assess_fruit(fruit_bowl):
     happiness = 0.0
     for fruit in fruit_bowl:
-        if isinstance(fruit, Apple):
+        if isinstance(fruit, Apple) and fruit.variety in TASTY_APPLES:
             yumminess = fruit.size * fruit.ripeness**2
-            if fruit.variety in TASTY_APPLES:
-                happiness += fruit.size * yumminess
+            happiness += fruit.size * yumminess
     return happiness
 
 
