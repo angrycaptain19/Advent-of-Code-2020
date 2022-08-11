@@ -20,14 +20,11 @@ def advent_of_code_day_1_part_1():
   for item in expense_report:
     for second_item in expense_report:
       if (item + second_item == 2020):
-        if len(eligible_items) < 1:
-          eligible_items.append(item)
-          eligible_items.append(second_item)
-        else:
+        if eligible_items:
           if item not in [eligible_items[0], eligible_items[1]]:
-            eligible_items.append(item)
-            eligible_items.append(second_item)
-
+            eligible_items.extend((item, second_item))
+        else:
+          eligible_items.extend((item, second_item))
   print('Part one results:')
   print('the two numbers are:')
   print(eligible_items)
@@ -41,13 +38,13 @@ def advent_of_code_day_1_part_2():
     for second_item in expense_report:
       for third_item in expense_report:
         if (item + second_item + third_item == 2020):
-          if len(eligible_items) < 1:
-            advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item,
-                                                          second_item, third_item)
-          else:
+          if eligible_items:
             if item not in [eligible_items[0], eligible_items[1], eligible_items[2]]:
               advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item,
                                                             second_item, third_item)
+          else:
+            advent_of_code_day_1_part_2_append_found_numbers(eligible_items, item,
+                                                          second_item, third_item)
   print('Part two results:')
   print('the three numbers are:')
   print(eligible_items)
