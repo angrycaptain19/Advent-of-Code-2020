@@ -6,7 +6,7 @@ def bag_parser(input_row):
   inner_bags = parsed_row[1].split(",")
   outer_bag = number_replacer(outer_bag)
   outer_bag = bags_to_bag(outer_bag)
-  for bag in range(0, len(inner_bags), 1):
+  for bag in range(len(inner_bags)):
     inner_bags[bag] = number_replacer(inner_bags[bag])
     inner_bags[bag] = bags_to_bag(inner_bags[bag])
   return outer_bag, inner_bags
@@ -77,7 +77,7 @@ def part_2_bag_parser(input_row):
   inner_bags = parsed_row[1].split(",")
   outer_bag = number_replacer(outer_bag)
   outer_bag = bags_to_bag(outer_bag)
-  for bag in range(0, len(inner_bags), 1):
+  for bag in range(len(inner_bags)):
     inner_bags[bag] = part_2_number_replacer(inner_bags[bag])
     inner_bags[bag] = bags_to_bag(inner_bags[bag])
   return outer_bag, inner_bags
@@ -86,24 +86,23 @@ def part_2(input_file):
   input = open(input_file, "r")
   bag_matrix = []
   outer_bags = []
-  bags_contained_by_outer_bag = {}
   for row in input:
     outer_bag, inner_bags = part_2_bag_parser(row)
     bag_matrix.append([outer_bag, inner_bags])
     if outer_bag not in outer_bags:
       outer_bags.append(outer_bag)
-  # Identify all bags that contain no other bags
-  for bag_set in bag_matrix:
-    if " no other bag" in bag_set[1]:
-      bags_contained_by_outer_bag[bag_set[0]] = 1
-  while len(bags_contained_by_outer_bag) < len(outer_bags):    
+  bags_contained_by_outer_bag = {
+      bag_set[0]: 1
+      for bag_set in bag_matrix if " no other bag" in bag_set[1]
+  }
+  while len(bags_contained_by_outer_bag) < len(outer_bags):
     for bag_set in bag_matrix:
       inner_bag_fully_defined = []
       for inner_bag in bag_set[1]:
-        if bags_contained_by_outer_bag.get(inner_bag[1:]) != None:
+        if bags_contained_by_outer_bag.get(inner_bag[1:]) is None: inner_bag_fully_defined.append(False)
+        else:
           inner_bag_fully_defined.append(True)
-        else: inner_bag_fully_defined.append(False)
-      if all(inner_bag_fully_defined) and len(inner_bag_fully_defined) != 0:
+      if all(inner_bag_fully_defined) and inner_bag_fully_defined:
         sub_bags = 0
         for sub_bag in bag_set[1]:
           sub_bags = sub_bags + int(sub_bag[0]) * bags_contained_by_outer_bag.get(sub_bag[1:])
