@@ -36,7 +36,7 @@ def full_slope_run_part_1(input_file, moves_to_the_right, moves_down):
 
 part_1_trees_hit = full_slope_run_part_1(input_file_name, moves_to_the_right, moves_down)
 
-print("In part 1 you encountered %s trees" % part_1_trees_hit)
+print(f"In part 1 you encountered {part_1_trees_hit} trees")
 
 #Takes the input slops in form [moves to the right, moves down]
 slope_matrix = [[1,1], [3,1], [5,1], [7,1], [1,2]]
@@ -47,11 +47,11 @@ def full_slope_run_part_2(input_file, slope_matrix):
   for run_counter, run in enumerate(slope_matrix, start=1):
     trees_hit = full_slope_run_part_1(input_file, run[0], run[1])
     run_results.append(trees_hit)
-    print("In part 2 run %s you encountered %s trees" % (run_counter, trees_hit))
+    print(f"In part 2 run {run_counter} you encountered {trees_hit} trees")
   return run_results
 
 part_2_results = np.prod(full_slope_run_part_2(input_file_name, slope_matrix))
 
-print("The overall part 2 results are %s" % part_2_results)
+print(f"The overall part 2 results are {part_2_results}")
 
 
