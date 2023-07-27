@@ -44,7 +44,7 @@ def part_one(input_file):
 
 part_one_solution = part_one(input)
 
-print("The answer to part one is %s" % part_one_solution)
+print(f"The answer to part one is {part_one_solution}")
 
 def part_two(input_file):
   input = open(input_file, "r")
@@ -68,4 +68,5 @@ def part_two(input_file):
 
 your_seat_ticket = part_two(input)
 
-print("Your seat number is %s. Take your seat, its time to fly" % (your_seat_ticket))
+print(
+    f"Your seat number is {your_seat_ticket}. Take your seat, its time to fly")
