@@ -13,12 +13,13 @@ def part_one_customs_check(input_file):
       current_group_unique_answers = []
     else:
       for character in range(0, len(row), 1):
-        if (row[character] != "" or row[character] != "\n"
-            ) and row[character] not in current_group_unique_answers:
+        if row[character] not in current_group_unique_answers:
           current_group_unique_answers.append(row[character])
   return np.sum(unique_answer_counts)
 
-print("The total number of unique answers in part one is %s" % part_one_customs_check(input))
+print(
+    f"The total number of unique answers in part one is {part_one_customs_check(input)}"
+)
 
 def part_two_customs_check(input_file):
   # sourcery skip: inline-immediately-returned-variable, merge-nested-ifs
@@ -35,8 +36,7 @@ def part_two_customs_check(input_file):
     else:
       if group_row_counter == 0:
         for character in range(0, len(row), 1):
-          if row[character] != "" or row[character] != "\n":
-            current_group_unanimous_answers.append(row[character])
+          current_group_unanimous_answers.append(row[character])
       else:
        #Defines the answers for an individual in a group who isn't the first to answer
         current_individual_answers = [
@@ -56,4 +56,6 @@ def part_two_customs_check(input_file):
   total_unique_answer_sum = np.sum(unique_answer_counts)
   return total_unique_answer_sum
 
-print("The total number of unique answers in part two is %s" % part_two_customs_check(input))
+print(
+    f"The total number of unique answers in part two is {part_two_customs_check(input)}"
+)
